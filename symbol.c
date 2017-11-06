@@ -3,14 +3,13 @@
 #include <strings.h>
 #include "semantic.h"
 
+
 char *diccionario[100];
 int cantVar = 0;
 
-int agregar(char* s){
-  diccionario[cantVar] = s;
-  /* Así compila hasta el primer temp.Esto solo apunta
-  el puntero a la ubicacion del vector. Tal vez debería
-  ser un doble puntero **diccionario y laburar con dos punteros. */
+void agregar(char* s){
+  diccionario[cantVar] = &s;
+  /* Así compila */
   cantVar++;
 }
 
