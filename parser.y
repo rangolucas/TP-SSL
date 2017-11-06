@@ -39,7 +39,7 @@ sentencia : LEER '('queLeer')' ';'
 queLeer : id {leer_id($1);} /* [ -IMPORTANTE ] Hay que arreglar esta doble rutina semantica */
   | queLeer ',' id  {leer_id($3);}
 operacion : CTE
-  | id
+  | id {$$ = yytext()} //NI IDEA SI ESTO FUNCIONA
   | '('operacion')'
   | '-'operacion %prec NEG {/*$$ = gen_infijo($2, 'N', NULL);*/} /* [ IMPORTANTE ] Este rompe todo con el void */
   | operacion '+' operacion {$$ = gen_infijo($1, $2, $3);}
