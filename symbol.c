@@ -7,7 +7,10 @@ char *diccionario[100];
 int cantVar = 0;
 
 int agregar(char* s){
-  strcpy(diccionario[cantVar], s);
+  diccionario[cantVar] = s;
+  /* Así compila hasta el primer temp.Esto solo apunta
+  el puntero a la ubicacion del vector. Tal vez debería
+  ser un doble puntero **diccionario y laburar con dos punteros. */
   cantVar++;
 }
 
