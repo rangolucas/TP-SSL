@@ -39,7 +39,7 @@ char* gen_infijo(char* op_a, char operacion, char* op_b){
     char temp_nro[10];
     char infijo[10] = "temp#";
     sprintf(temp_nro, "%d", cant_temps);
-    strcat(infijo, temp_nro);
+    infijo = strcat(infijo, temp_nro);
     cant_temps++;
 
     declararVar(infijo);

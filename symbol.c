@@ -7,7 +7,7 @@ char *diccionario[100];
 int cantVar = 0;
 
 int agregar(char* s){
-  diccionario[cantVar] = &s;
+  strcpy(diccionario[cantVar], s);
   cantVar++;
 }
 
