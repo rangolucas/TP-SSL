@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
+#include <string.h>
+#include "parser.h"
 #include "semantic.h"
 
 
@@ -9,8 +11,7 @@ int cantVar = 0;
 
 void agregar(char* s){
   diccionario[cantVar] = malloc(100);
-  *diccionario[cantVar] = s;
-  /* Así compila */
+  strcpy(diccionario[cantVar],s);
   cantVar++;
 }
 
@@ -27,6 +28,7 @@ void declararVar(char* s){
     agregar(s);
     generar("Declare", s, "Integer", "");
   }else{
-    // ERROR SEMANTICO
+    mensaje
+    yyerror("Error semántico: identificador %s ya declarado", s); /* DEBERIA SER YYERROR MAYUSC */
   }
 }

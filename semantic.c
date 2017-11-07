@@ -2,10 +2,14 @@
 #include <stdio.h>
 #include <strings.h>
 #include <string.h>
+#include "parser.h"
 
 int cant_temps = 1;
 char infijo[8];
-char temp_nro[2];
+
+void generar(char* op, char* a, char* b, char* c){
+    printf("%s %s, %s, %s\n", op, a, b, c);
+}
 
 void comenzar (void){
     generar("Load", "rtlib", "", "");
@@ -13,10 +17,6 @@ void comenzar (void){
 
 void terminar(){
     generar("Stop", "", "", "");
-}
-
-void generar(char* op, char* a, char* b, char* c){
-    printf("%s %s, %s, %s\n", op, a, b, c);
 }
 
 void asignar (char* izquierda, char* derecha) {
@@ -30,30 +30,27 @@ void leer_id(char* s){
 void escribir_exp (char* out) {
     generar("Write", out, "Integer", "");
 }
-void append(char* s, char c) {
-        int len = strlen(s);
-        s[len] = c;
-        s[len+1] = '\0';
+
+void procesar (char* s){
+  if(buscar(s)!=1){
+    yyerror("Error semántico: identificador %s NO declarado", s);
+  }
 }
 
 char* gen_infijo(char* op_a, char operacion, char* op_b){
 
-    //if(op_a.type == ID) chequear(op_a);
-    //if(op_b.type == ID) chequear(op_b);
-    // ESTO DE ARRIBA HACE FALTA?
 
     /* [IMPORTANTE]
     Hay problemas por aca OBVIAMENTE
     */
 
-
+    char temp_nro[2];
     strcpy(infijo,"temp#");
     sprintf(temp_nro, "%d", cant_temps);
     strcat(infijo, temp_nro);
     cant_temps++;
 
     declararVar(infijo);
-
     switch(operacion){
         case '+':
             generar("ADD", op_a, op_b, infijo);
@@ -75,5 +72,6 @@ char* gen_infijo(char* op_a, char operacion, char* op_b){
             generar("INV", op_a, "", infijo);
             break;
     }
+
     return infijo;
 }
