@@ -27,23 +27,23 @@ variables : VARIABLES cuerpoVariables
 codigo  : CODIGO cuerpoCodigo
 cuerpoVariables : defVariable
   | cuerpoVariables defVariable
-defVariable : DEFINIR id ';' {declararVar($2);}
+defVariable : DEFINIR id ';' {if(!declararVar($2)) YYERROR;}
   | error ';'
   ;
 cuerpoCodigo : sentencia
   | cuerpoCodigo sentencia
 sentencia : LEER '('queLeer')' ';'
-  | id ASIGN operacion ';' { asignar($1, $3); }
-  | ESCRIBIR '('operacion')' ';' {escribir_exp($3);}
+  | id ASIGN operacion ';' { asignar($1, $3);  }
+  | ESCRIBIR '('operacion')' ';' {escribir_exp($3); ;}
   | error ';'
-queLeer : id {leer_id($1);} /* [ -IMPORTANTE ] Hay que arreglar esta doble rutina semantica */
-  | queLeer ',' id  {leer_id($3);}
+queLeer : id {leer_id($1);  } /* [ -IMPORTANTE ] Hay que arreglar esta doble rutina semantica */
+  | queLeer ',' id  {leer_id($3);  }
 operacion : CTE {$$ = $1;}
   | id
-  | '('operacion')'
+  | '('operacion')' {/*$$ = $2;*/}
   | '-'operacion %prec NEG {$$ = gen_infijo($2, 'N', NULL);} /* [ IMPORTANTE ] Este rompe todo con el void */
   | operacion '+' operacion {$$ = gen_infijo($1, '+', $3);}
   | operacion '-' operacion {$$ = gen_infijo($1, '-', $3);}
   | operacion '*' operacion  {$$ = gen_infijo($1, '*', $3);}
   | operacion '/' operacion  {$$ = gen_infijo($1, '/', $3);}
-id : IDENTIFICADOR {$$ = $1; procesar($1);} /* [ IMPORTANTE ] Hay que arreglar el tema del id colgado */
+id : IDENTIFICADOR {$$ = $1; } /* [ IMPORTANTE ] Hay que arreglar el tema del id colgado */

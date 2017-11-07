@@ -3,6 +3,6 @@
 
 void agregar(char*);
 int buscar(char*);
-void declararVar(char*);
+int declararVar(char*);
 
 #endif // SYMBOL_H_INCLUDED

@@ -5,8 +5,8 @@
 #include "parser.h"
 #include "semantic.h"
 
-
 char *diccionario[100];
+char mensaje[200];
 int cantVar = 0;
 
 void agregar(char* s){
@@ -23,12 +23,16 @@ int buscar(char* s){
   return 0;
 }
 
-void declararVar(char* s){
+int declararVar(char* s){
   if (buscar(s)!=1){
     agregar(s);
     generar("Declare", s, "Integer", "");
+    return 1;
   }else{
-    mensaje
-    yyerror("Error semántico: identificador %s ya declarado", s); /* DEBERIA SER YYERROR MAYUSC */
+    strcpy(mensaje, "Error semántico: identificador ");
+    strcat(mensaje, s);
+    strcat(mensaje, " ya declarado");
+    yyerror(mensaje); 
+    return 0;
   }
 }

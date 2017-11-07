@@ -10,7 +10,7 @@ void generar(char*, char*, char*, char*);
 void asignar (char*,char*);
 void leer_id(char*);
 void escribir_exp (char*);
-void procesar_cte();
+int procesar(char*);
 char *gen_infijo(char*, char, char*);
 
 #endif // SEMANTIC_H_INCLUDED
