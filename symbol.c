@@ -8,7 +8,8 @@ char *diccionario[100];
 int cantVar = 0;
 
 void agregar(char* s){
-  diccionario[cantVar] = &s;
+  diccionario[cantVar] = malloc(100);
+  *diccionario[cantVar] = s;
   /* Así compila */
   cantVar++;
 }
