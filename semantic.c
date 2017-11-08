@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "parser.h"
 
-char infijo[10];
+char infijo[32];
 int cant_temps = 1;
 char mensaje[200];
 
@@ -46,12 +46,18 @@ int procesar (char* s){
   }
 }
 
+void copiar(char** cadena1, char** cadena2){
+    for(i=0; i<32; i++){
+        *cadena1[i] = *cadena2[i];
+    }
+}
+
 char* gen_infijo(char* op_a, char operacion, char* op_b){
     /* [IMPORTANTE]
     Hay problemas por aca OBVIAMENTE
     */
-    char aux[10] = "";
-    strcpy(aux, op_b);
+    char aux[32] = "";
+    copiar(&aux, &op_b);
 
     printf("Llega infijo %s\n",infijo );
     printf("Llega op_a %s\n", op_a );
