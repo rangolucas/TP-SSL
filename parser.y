@@ -39,8 +39,8 @@ sentencia : LEER '('queLeer')' ';'
 queLeer : id {leer_id($1);  } /* [ -IMPORTANTE ] Hay que arreglar esta doble rutina semantica */
   | queLeer ',' id  {leer_id($3);  }
 operacion : CTE {$$ = $1;}
-  | id
-  | '('operacion')' {/*$$ = $2;*/}
+  | id {if(!procesar($1)) YYERROR;}
+  | '('operacion')' 
   | '-'operacion %prec NEG {$$ = gen_infijo($2, 'N', NULL);} /* [ IMPORTANTE ] Este rompe todo con el void */
   | operacion '+' operacion {$$ = gen_infijo($1, '+', $3);}
   | operacion '-' operacion {$$ = gen_infijo($1, '-', $3);}
